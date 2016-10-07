@@ -25,16 +25,20 @@ export default class App extends Component {
         );
     }
 
+    selectUser(user) {
+        this.setState({ friend: user });
+    }
+
     renderChat(login) {
         return (
             <div className="row row-broken">
                 <div className="col-sm-3 col-xs-12">
                     <div className="col-inside-lg decor-default chat">
-                        <UserList user={login} />
+                        <UserList user={login} onSelectUser={this.selectUser.bind(this) } />
                     </div>
                 </div>
                 <div className="col-sm-9 col-xs-12 chat">
-                    <Chat user={login} />
+                    <Chat user={login} friend={this.state.friend} />
                 </div>
             </div>
         );

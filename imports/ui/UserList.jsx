@@ -8,6 +8,12 @@ class UserList extends Component {
         super(props);
     }
 
+    selectUser(user) {
+        if (this.props.onSelectUser) {
+            this.props.onSelectUser(user);
+        }
+    }
+
     render() {
         var currentUser = this.props.user;
 
@@ -16,7 +22,7 @@ class UserList extends Component {
                 return;
             }
 
-            return (<User key={i} user={user} />);
+            return (<User key={i} user={user} onSelectUser={this.selectUser.bind(this)} />);
         });
 
         return (
@@ -33,15 +39,21 @@ class User extends Component {
         super(props);
     }
 
+    selectUser() {
+        if (this.props.onSelectUser) {
+            this.props.onSelectUser(this.props.user);
+        }
+    }
+
     render() {
         return (
-            <div className="user">
+            <div className="user" onClick={this.selectUser.bind(this)}>
                 <div className="avatar">
                     <img src="http://bootdey.com/img/Content/avatar/avatar1.png" alt={this.props.user.login} />
                     <div className={'status ' + this.props.user.status}></div>
                 </div>
                 <div className="name">{this.props.user.login}</div>
-                <div className="mood">&nbsp;</div>
+                <div className="mood">&nbsp; </div>
             </div>
         );
     }
